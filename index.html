@@ -49,27 +49,6 @@ h2.title { font-family: var(--display); font-style: italic; font-weight: 600; fo
 #fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 300; }
 #progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 60; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--rose), var(--gold), var(--maroon)); }
 
-/* ---------- Spotify player ---------- */
-.player {
-  position: fixed; left: 50%; bottom: 12px; z-index: 90; width: min(92vw, 380px); transform: translate(-50%, 0);
-  opacity: 0; pointer-events: none; transition: opacity .7s, transform .5s cubic-bezier(.2,.8,.2,1);
-  padding: 6px; border-radius: 18px; background: rgba(255,248,244,.95); border: 1px solid var(--gold); box-shadow: 0 12px 30px rgba(74,24,41,.3);
-}
-body.opened .player { opacity: 1; pointer-events: auto; }
-body.opened .player.min { transform: translate(-50%, 160%); pointer-events: none; }
-.player iframe { display: block; border: 0; width: 100%; height: 80px; border-radius: 12px; }
-.pl-hide {
-  position: absolute; right: -6px; top: -12px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--gold); cursor: pointer;
-  background: var(--maroon); color: var(--ivory); font: 500 16px/1 var(--body); display: grid; place-items: center; z-index: 2;
-}
-.pl-fab {
-  position: fixed; right: 14px; bottom: 14px; z-index: 91; width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--gold); cursor: pointer;
-  background: rgba(255,248,244,.95); color: var(--maroon); font: 600 22px/1 var(--display); box-shadow: 0 8px 20px rgba(122,43,69,.28);
-  display: none; place-items: center; transition: transform .25s;
-}
-.pl-fab.show { display: grid; }
-.pl-fab:hover { transform: scale(1.08); }
-
 /* =========================================================
    ENVELOPE INTRO
    ========================================================= */
@@ -243,28 +222,24 @@ body.opened .scroll-hint { animation: rise 1s ease 3s both, drip 2.2s ease-in-ou
 .orn i { display: block; height: 1px; width: min(30vw, 9rem); background: linear-gradient(90deg, transparent, var(--gold)); }
 .orn i:last-child { transform: scaleX(-1); }
 
-/* ---------- Events timeline ---------- */
+/* ---------- Wedding ceremony: single arch card ---------- */
 .events { padding: 5rem 0 5rem; }
 .events .head { text-align: center; }
-.tl { position: relative; margin-top: 3.5rem; display: grid; gap: 2.5rem; }
-.tl::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; translate: -50% 0; background: linear-gradient(var(--gold), var(--rose)); transform-origin: top; opacity: .8; }
-.ev { position: relative; width: calc(50% - 2.5rem); padding: 1.8rem; border: 1px solid rgba(201,154,91,.75); border-radius: 12px; background: #fff7f4; box-shadow: 0 10px 30px rgba(122,43,69,.1); transition: transform .35s, border-color .35s, box-shadow .35s; transform-style: preserve-3d; }
-.ev:nth-child(even) { margin-left: auto; }
-.ev:hover { border-color: var(--maroon); box-shadow: 0 20px 50px rgba(122,43,69,.2); }
-.ev::after { content: ""; position: absolute; top: 2.2rem; width: 1rem; height: 1rem; border-radius: 50%; background: var(--maroon); box-shadow: 0 0 0 6px rgba(201,154,91,.38); }
-.ev:nth-child(odd)::after { right: calc(-2.5rem - .5rem); }
-.ev:nth-child(even)::after { left: calc(-2.5rem - .5rem); }
-.ev .d { font-size: .74rem; letter-spacing: .24em; text-transform: uppercase; color: var(--rose); font-weight: 500; }
-.ev h3 { font-family: var(--display); font-style: italic; font-weight: 600; font-size: 2.5rem; line-height: 1.1; margin: .2rem 0 .4rem; color: var(--maroon); }
-.ev p { color: var(--ink); }
-.ev .meta { margin-top: .9rem; font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-deep); font-weight: 500; }
-.ev.main { background: var(--maroon); border-color: var(--gold); box-shadow: 0 20px 50px rgba(122,43,69,.32); }
-.ev.main h3 { color: var(--gold-light); }
-.ev.main p { color: var(--ivory); }
-.ev.main .d { color: var(--gold-light); }
-.ev.main .d::before { content: "The wedding · "; }
-.ev.main .meta { color: var(--gold-light); }
-.ev.main:hover { border-color: var(--gold-light); }
+.days { margin-top: 3.5rem; display: grid; justify-items: center; }
+.day {
+  position: relative; width: min(100%, 24rem); text-align: center; padding: 5.4rem 1.8rem 2.8rem;
+  background: linear-gradient(180deg, var(--maroon), var(--maroon-deep)); border: 1px solid var(--gold);
+  border-radius: 999px 999px 18px 18px; box-shadow: 0 24px 56px rgba(122,43,69,.38); transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s;
+}
+.day::before { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(240,201,160,.6); border-radius: 999px 999px 12px 12px; pointer-events: none; }
+.day:hover { transform: translateY(-8px); box-shadow: 0 30px 64px rgba(122,43,69,.45); }
+.day .wd { font-size: .72rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold-light); font-weight: 500; }
+.day .num { display: block; font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(5rem, 14vw, 6.4rem); line-height: 1; color: var(--ivory); margin: .1rem 0 0; }
+.day .mon { font-size: .74rem; letter-spacing: .34em; text-transform: uppercase; color: var(--gold-light); font-weight: 500; }
+.day .rule { display: block; width: 3rem; height: 1px; background: var(--gold-light); margin: 1.2rem auto; }
+.day h3 { font-family: var(--display); font-style: italic; font-weight: 600; font-size: 2.3rem; line-height: 1.1; color: var(--ivory); margin-bottom: .6rem; }
+.day p.about { font-size: 1rem; line-height: 1.65; color: var(--ivory); }
+.day .meta { margin-top: 1.1rem; font-size: .74rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-light); font-weight: 500; }
 
 /* ---------- Venue ---------- */
 .venue { padding: 1rem 0 5rem; }
@@ -297,7 +272,7 @@ fieldset { border: 0; display: grid; gap: .7rem; }
 .rsvp .btn { background: linear-gradient(110deg, #c28b4f, var(--gold-light), #fbe0c0, var(--gold-light)); background-size: 220% 100%; color: var(--maroon-deep); font-weight: 500; }
 form .btn { justify-self: start; margin-top: .4rem; }
 
-footer { text-align: center; padding: 5rem 1rem 6.5rem; position: relative; z-index: 2; background: var(--maroon-deep); color: var(--ivory); }
+footer { text-align: center; padding: 5rem 1rem 4rem; position: relative; z-index: 2; background: var(--maroon-deep); color: var(--ivory); }
 footer .shubh { color: var(--gold-light); font-size: 1.5rem; opacity: 1; }
 footer .big { font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(3rem, 11vw, 6rem); line-height: 1.1; color: var(--gold-light); }
 footer .caps { color: var(--ivory); }
@@ -306,28 +281,18 @@ footer p { opacity: .85; }
 /* ---------- Scroll-driven motion (content stays visible where unsupported) ---------- */
 @supports (animation-timeline: view()) {
   .reveal { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
-  .ev:nth-child(odd).reveal { animation-name: reveal-l; }
-  .ev:nth-child(even).reveal { animation-name: reveal-r; }
-  .tl::before { animation: draw linear both; animation-timeline: view(); animation-range: entry 10% cover 70%; }
   #progress { animation: grow linear both; animation-timeline: scroll(root); }
   .mandala.a { animation: spin 120s linear infinite, drift linear both; animation-timeline: auto, scroll(root); }
   .names-wrap { animation: lift linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
   .rsvp-grid .reveal { animation-range: entry 0% entry 70%; }
 }
 @keyframes reveal { from { opacity: 0; transform: translateY(60px) scale(.96); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
-@keyframes reveal-l { from { opacity: 0; transform: translateX(-80px) rotate(-2deg); } to { opacity: 1; transform: none; } }
-@keyframes reveal-r { from { opacity: 0; transform: translateX(80px) rotate(2deg); } to { opacity: 1; transform: none; } }
-@keyframes draw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 @keyframes grow { to { transform: scaleX(1); } }
 @keyframes drift { to { translate: -50% -38%; } }
 @keyframes lift { to { transform: translateY(-80px) scale(.9); opacity: .2; } }
 
 @media (max-width: 760px) {
   .rsvp-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .tl::before { left: 1rem; }
-  .ev, .ev:nth-child(even) { width: calc(100% - 2.6rem); margin-left: 2.6rem; padding: 1.4rem; }
-  .ev:nth-child(odd)::after, .ev:nth-child(even)::after { left: calc(-1.6rem - .5rem); right: auto; }
-  .ev h3 { font-size: 2.2rem; }
   .count-grid { gap: .5rem; }
   form { padding: 1.3rem; }
 }
@@ -346,13 +311,6 @@ footer p { opacity: .85; }
 <div id="progress"></div>
 <canvas id="petals" aria-hidden="true"></canvas>
 <canvas id="fx" aria-hidden="true"></canvas>
-
-<!-- Spotify player (Aaj Sajeya). The seal tap asks it to play; guests can also press play. -->
-<div class="player" id="player" role="complementary" aria-label="Wedding song">
-  <button class="pl-hide" id="plHide" type="button" aria-label="Hide player">&times;</button>
-  <div id="embed"></div>
-</div>
-<button class="pl-fab" id="plFab" type="button" aria-label="Show music player">&#9834;</button>
 
 <!-- Shared botanical sprig used in the hero corners -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -469,27 +427,18 @@ footer p { opacity: .85; }
 <section class="events" id="events">
   <div class="wrap">
     <div class="head">
-      <p class="caps reveal">The celebrations</p>
-      <h2 class="title reveal">Three days of joy</h2>
+      <p class="caps reveal">The celebration</p>
+      <h2 class="title reveal">The wedding day</h2>
     </div>
-    <div class="tl">
-      <article class="ev reveal">
-        <p class="d">Wednesday, 25 November</p>
-        <h3>Mehendi and Haldi</h3>
-        <p>Henna, turmeric and marigolds with the people closest to us.</p>
-        <p class="meta">4:00 PM onwards · Yellow and green</p>
-      </article>
-      <article class="ev reveal">
-        <p class="d">Thursday, 26 November</p>
-        <h3>Sangeet Night</h3>
-        <p>Performances from both families, a live band and a dance floor that stays open late.</p>
-        <p class="meta">8:00 PM onwards · Festive and glam</p>
-      </article>
-      <article class="ev main reveal">
-        <p class="d">Friday, 27 November</p>
+    <div class="days">
+      <article class="day reveal">
+        <p class="wd">Friday</p>
+        <span class="num">27</span>
+        <p class="mon">November 2026</p>
+        <i class="rule"></i>
         <h3>Wedding Ceremony</h3>
-        <p>The baraat arrives, the pheras are taken and the celebration continues with dinner.</p>
-        <p class="meta">7:00 PM onwards · Traditional</p>
+        <p class="about">The baraat arrives, the pheras are taken and the celebration continues with dinner.</p>
+        <p class="meta">7:00 PM onwards</p>
       </article>
     </div>
   </div>
@@ -529,14 +478,6 @@ footer p { opacity: .85; }
         <label for="guest-count">Guests, including you</label>
         <input type="number" id="guest-count" min="1" max="10" value="1">
       </div>
-      <fieldset>
-        <legend>Events you will join</legend>
-        <div class="choices">
-          <label class="chip"><input type="checkbox" name="ev" value="Mehendi and Haldi" checked><span>Mehendi and Haldi</span></label>
-          <label class="chip"><input type="checkbox" name="ev" value="Sangeet" checked><span>Sangeet</span></label>
-          <label class="chip"><input type="checkbox" name="ev" value="Wedding" checked><span>Wedding</span></label>
-        </div>
-      </fieldset>
       <div>
         <label for="guest-note">A note for the couple</label>
         <textarea id="guest-note"></textarea>
@@ -552,17 +493,6 @@ footer p { opacity: .85; }
   <p class="caps" style="margin-top:.8rem">27 November 2026</p>
   <p style="margin-top:1.4rem">With love, the Srivastava families</p>
 </footer>
-
-<script>
-// Spotify iFrame API: creates the player and gives us play() control.
-var spotCtl = null, spotWantPlay = false;
-window.onSpotifyIframeApiReady = function (API) {
-  API.createController(document.getElementById("embed"),
-    { uri: "spotify:track:119XDcdbad5u5bp841vUGV", width: "100%", height: 80 },
-    function (c) { spotCtl = c; if (spotWantPlay) { try { c.play(); } catch (e) {} } });
-};
-</script>
-<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 
 <script>
 // Edit these to personalise the page.
@@ -602,14 +532,6 @@ var WHATSAPP_NUMBER = ""; // e.g. "919876543210" (country code + number). Empty 
     if (parts.length) requestAnimationFrame(fxFrame); else { fxRun = false; fctx.clearRect(0, 0, FW, FH); }
   }
 
-  /* ---------- Spotify player controls ---------- */
-  var player = document.getElementById("player"), plHide = document.getElementById("plHide"), plFab = document.getElementById("plFab");
-  plHide.addEventListener("click", function () { player.classList.add("min"); plFab.classList.add("show"); });
-  plFab.addEventListener("click", function () { player.classList.remove("min"); plFab.classList.remove("show"); });
-  function playSong() {
-    if (spotCtl) { try { spotCtl.play(); } catch (e) {} } else { spotWantPlay = true; }
-  }
-
   /* ---------- Envelope ---------- */
   var env = document.getElementById("env"), seal = document.getElementById("seal"), sealWrap = document.getElementById("sealWrap");
   var wax = sealWrap.querySelector(".wax"), opened = false;
@@ -623,7 +545,6 @@ var WHATSAPP_NUMBER = ""; // e.g. "919876543210" (country code + number). Empty 
   function openInvite() {
     if (opened) return; opened = true;
     env.classList.add("open");
-    playSong();
     var r = sealWrap.getBoundingClientRect();
     burst(r.left + r.width / 2, r.top + r.height / 2, 90, 7);
     setTimeout(function () { burst(innerWidth / 2, innerHeight * .46, 150, 10); }, 3050 * M);
@@ -665,18 +586,11 @@ var WHATSAPP_NUMBER = ""; // e.g. "919876543210" (country code + number). Empty 
   }
   tick(); setInterval(tick, 1000);
 
-  /* ---------- Cursor glow + 3D tilt ---------- */
+  /* ---------- Cursor glow ---------- */
   window.addEventListener("pointermove", function (e) {
     document.documentElement.style.setProperty("--mx", e.clientX + "px");
     document.documentElement.style.setProperty("--my", e.clientY + "px");
   }, { passive: true });
-  if (!reduce) document.querySelectorAll(".ev").forEach(function (c) {
-    c.addEventListener("pointermove", function (e) {
-      var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-      c.style.transform = "perspective(800px) rotateY(" + (x * 8) + "deg) rotateX(" + (-y * 8) + "deg) translateY(-4px)";
-    });
-    c.addEventListener("pointerleave", function () { c.style.transform = ""; });
-  });
 
   /* ---------- RSVP to WhatsApp ---------- */
   var form = document.getElementById("rsvp-form"), send = document.getElementById("rsvp-send");
@@ -684,10 +598,8 @@ var WHATSAPP_NUMBER = ""; // e.g. "919876543210" (country code + number). Empty 
     var name = document.getElementById("guest-name").value.trim() || "A guest";
     var attend = form.querySelector("input[name=attend]:checked").value;
     var count = document.getElementById("guest-count").value || "1";
-    var evs = Array.prototype.map.call(form.querySelectorAll("input[name=ev]:checked"), function (e) { return e.value; });
     var note = document.getElementById("guest-note").value.trim();
-    var msg = "Hello! RSVP for Mahek and Anirudh's wedding (27 Nov 2026).\nName: " + name + "\nReply: " + attend + "\nGuests: " + count +
-      (attend === "Joyfully accepts" && evs.length ? "\nEvents: " + evs.join(", ") : "") + (note ? "\nNote: " + note : "");
+    var msg = "Hello! RSVP for Mahek and Anirudh's wedding (27 Nov 2026).\nName: " + name + "\nReply: " + attend + "\nGuests: " + count + (note ? "\nNote: " + note : "");
     send.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
   }
   form.addEventListener("input", build);
