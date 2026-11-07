@@ -248,30 +248,6 @@ body.opened .scroll-hint { animation: rise 1s ease 3s both, drip 2.2s ease-in-ou
 .venue-card h2 { font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(2.5rem, 7vw, 4rem); line-height: 1.1; margin: .4rem 0 1rem; color: var(--maroon); }
 .venue-card address { font-style: normal; max-width: 40ch; margin-inline: auto; }
 
-/* ---------- RSVP ---------- */
-.rsvp { padding: 5rem 0; background: linear-gradient(180deg, var(--maroon), var(--maroon-deep)); color: var(--ivory); }
-.rsvp .caps { color: var(--gold-light); }
-.rsvp h2.title { color: var(--ivory); }
-.rsvp-grid { display: grid; grid-template-columns: 1fr 1.25fr; gap: 3.5rem; align-items: start; }
-.rsvp p.lead { margin-top: 1rem; max-width: 34ch; }
-form { display: grid; gap: 1.2rem; padding: 2rem; border: 1px solid rgba(240,201,160,.55); border-radius: 14px; background: rgba(74,24,41,.55); backdrop-filter: blur(8px); }
-label, legend { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-light); font-weight: 500; }
-input[type=text], input[type=number], textarea {
-  width: 100%; margin-top: .45rem; padding: .85rem .95rem; font: inherit; font-size: 1rem; color: var(--ink);
-  background: var(--ivory); border: 1px solid transparent; border-radius: 6px; transition: box-shadow .25s;
-}
-input:focus, textarea:focus { outline: none; box-shadow: 0 0 0 3px var(--gold); }
-textarea { min-height: 5.5rem; resize: vertical; }
-fieldset { border: 0; display: grid; gap: .7rem; }
-.choices { display: flex; flex-wrap: wrap; gap: .6rem; }
-.chip { position: relative; }
-.chip input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
-.chip span { display: block; padding: .55rem 1.1rem; border: 1px solid rgba(240,201,160,.7); border-radius: 999px; font-family: var(--body); font-size: .95rem; letter-spacing: 0; text-transform: none; color: var(--ivory); font-weight: 400; transition: all .25s; }
-.chip input:checked + span { background: var(--gold-light); color: var(--maroon-deep); border-color: var(--gold-light); transform: scale(1.04); }
-.chip input:focus-visible + span { outline: 2px solid var(--ivory); outline-offset: 3px; }
-.rsvp .btn { background: linear-gradient(110deg, #c28b4f, var(--gold-light), #fbe0c0, var(--gold-light)); background-size: 220% 100%; color: var(--maroon-deep); font-weight: 500; }
-form .btn { justify-self: start; margin-top: .4rem; }
-
 footer { text-align: center; padding: 5rem 1rem 4rem; position: relative; z-index: 2; background: var(--maroon-deep); color: var(--ivory); }
 footer .shubh { color: var(--gold-light); font-size: 1.5rem; opacity: 1; }
 footer .big { font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(3rem, 11vw, 6rem); line-height: 1.1; color: var(--gold-light); }
@@ -304,7 +280,6 @@ body.opened .music { opacity: 1; transform: none; pointer-events: auto; transiti
   #progress { animation: grow linear both; animation-timeline: scroll(root); }
   .mandala.a { animation: spin 120s linear infinite, drift linear both; animation-timeline: auto, scroll(root); }
   .names-wrap { animation: lift linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
-  .rsvp-grid .reveal { animation-range: entry 0% entry 70%; }
 }
 @keyframes reveal { from { opacity: 0; transform: translateY(60px) scale(.96); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
 @keyframes grow { to { transform: scaleX(1); } }
@@ -312,9 +287,7 @@ body.opened .music { opacity: 1; transform: none; pointer-events: auto; transiti
 @keyframes lift { to { transform: translateY(-80px) scale(.9); opacity: .2; } }
 
 @media (max-width: 760px) {
-  .rsvp-grid { grid-template-columns: 1fr; gap: 2rem; }
   .count-grid { gap: .5rem; }
-  form { padding: 1.3rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
@@ -414,7 +387,6 @@ body.opened .music { opacity: 1; transform: none; pointer-events: auto; transiti
       </h1>
       <p class="full">Mahek Srivastava weds Anirudh Srivastava</p>
       <p><span class="date-badge"><span>Friday</span><span>27 November 2026</span></span></p>
-      <a class="btn" href="#rsvp">Reply to the invitation</a>
     </div>
   </div>
   <div class="scroll-hint" aria-hidden="true"></div>
@@ -476,43 +448,11 @@ body.opened .music { opacity: 1; transform: none; pointer-events: auto; transiti
   </div>
 </section>
 
-<section class="rsvp" id="rsvp">
-  <div class="wrap rsvp-grid">
-    <div class="reveal">
-      <p class="caps">RSVP</p>
-      <h2 class="title">Will you be there?</h2>
-      <p class="lead">Let us know so we can save you a seat. Your reply opens in WhatsApp, ready to send.</p>
-    </div>
-    <form id="rsvp-form" class="reveal" novalidate>
-      <div>
-        <label for="guest-name">Your name</label>
-        <input type="text" id="guest-name" autocomplete="name">
-      </div>
-      <fieldset>
-        <legend>Will you attend?</legend>
-        <div class="choices">
-          <label class="chip"><input type="radio" name="attend" value="Joyfully accepts" checked><span>Joyfully accepts</span></label>
-          <label class="chip"><input type="radio" name="attend" value="Regretfully declines"><span>Regretfully declines</span></label>
-        </div>
-      </fieldset>
-      <div>
-        <label for="guest-count">Guests, including you</label>
-        <input type="number" id="guest-count" min="1" max="10" value="1">
-      </div>
-      <div>
-        <label for="guest-note">A note for the couple</label>
-        <textarea id="guest-note"></textarea>
-      </div>
-      <a class="btn" id="rsvp-send" href="#rsvp" target="_blank" rel="noopener">Send reply on WhatsApp</a>
-    </form>
-  </div>
-</section>
-
 <footer>
   <p class="shubh" lang="hi">शुभ विवाह</p>
   <p class="big">Mahek &amp; Anirudh</p>
   <p class="caps" style="margin-top:.8rem">27 November 2026</p>
-  <p style="margin-top:1.4rem">With love, the Srivastava families</p>
+  <p style="margin-top:1.4rem">With love, the Srivastava's family</p>
 </footer>
 
 <!-- Wedding song player (Spotify) -->
@@ -524,7 +464,6 @@ body.opened .music { opacity: 1; transform: none; pointer-events: auto; transiti
 <script>
 // Edit these to personalise the page.
 var WEDDING_START = new Date("2026-11-27T19:00:00+05:30");
-var WHATSAPP_NUMBER = ""; // e.g. "919876543210" (country code + number). Empty lets the guest pick the contact.
 var SPOTIFY_TRACK = "119XDcdbad5u5bp841vUGV"; // Spotify track ID of the wedding song
 
 (function () {
@@ -641,20 +580,6 @@ var SPOTIFY_TRACK = "119XDcdbad5u5bp841vUGV"; // Spotify track ID of the wedding
     document.documentElement.style.setProperty("--mx", e.clientX + "px");
     document.documentElement.style.setProperty("--my", e.clientY + "px");
   }, { passive: true });
-
-  /* ---------- RSVP to WhatsApp ---------- */
-  var form = document.getElementById("rsvp-form"), send = document.getElementById("rsvp-send");
-  function build() {
-    var name = document.getElementById("guest-name").value.trim() || "A guest";
-    var attend = form.querySelector("input[name=attend]:checked").value;
-    var count = document.getElementById("guest-count").value || "1";
-    var note = document.getElementById("guest-note").value.trim();
-    var msg = "Hello! RSVP for Mahek and Anirudh's wedding (27 Nov 2026).\nName: " + name + "\nReply: " + attend + "\nGuests: " + count + (note ? "\nNote: " + note : "");
-    send.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
-  }
-  form.addEventListener("input", build);
-  form.addEventListener("submit", function (e) { e.preventDefault(); });
-  build();
 
   /* ---------- Petals + sparkles (start after the envelope opens) ---------- */
   var petalsOn = false;
