@@ -224,6 +224,7 @@ body.opened .scroll-hint { animation: rise 1s ease 3s both, drip 2.2s ease-in-ou
 .hosts { margin-top: 2.6rem; }
 .hosts-names { font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(1.9rem, 5vw, 2.8rem); line-height: 1.2; color: var(--maroon); margin-top: .5rem; text-wrap: balance; }
 .hosts-names span { color: var(--gold-deep); font-weight: 500; padding-inline: .15em; }
+.hosts-names + .hosts-names { margin-top: .15rem; }
 .paw { width: 1.2em; height: 1.2em; fill: var(--gold-light); vertical-align: -.25em; margin-left: .25em; }
 
 /* ---------- Wedding ceremony: single arch card ---------- */
@@ -252,31 +253,42 @@ body.opened .scroll-hint { animation: rise 1s ease 3s both, drip 2.2s ease-in-ou
 .venue-card h2 { font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(2.5rem, 7vw, 4rem); line-height: 1.1; margin: .4rem 0 1rem; color: var(--maroon); }
 .venue-card address { font-style: normal; max-width: 40ch; margin-inline: auto; }
 
+/* ---------- RSVP ---------- */
+.rsvp { padding: 5rem 0; background: linear-gradient(180deg, var(--maroon), var(--maroon-deep)); color: var(--ivory); }
+.rsvp .caps { color: var(--gold-light); }
+.rsvp h2.title { color: var(--ivory); }
+.rsvp-grid { display: grid; grid-template-columns: 1fr 1.25fr; gap: 3.5rem; align-items: start; }
+.rsvp p.lead { margin-top: 1rem; max-width: 34ch; }
+form { display: grid; gap: 1.2rem; padding: 2rem; border: 1px solid rgba(240,201,160,.55); border-radius: 14px; background: rgba(74,24,41,.55); backdrop-filter: blur(8px); }
+label, legend { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-light); font-weight: 500; }
+input[type=text], input[type=number], textarea {
+  width: 100%; margin-top: .45rem; padding: .85rem .95rem; font: inherit; font-size: 1rem; color: var(--ink);
+  background: var(--ivory); border: 1px solid transparent; border-radius: 6px; transition: box-shadow .25s;
+}
+input:focus, textarea:focus { outline: none; box-shadow: 0 0 0 3px var(--gold); }
+textarea { min-height: 5.5rem; resize: vertical; }
+fieldset { border: 0; display: grid; gap: .7rem; }
+.choices { display: flex; flex-wrap: wrap; gap: .6rem; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.chip span { display: block; padding: .55rem 1.1rem; border: 1px solid rgba(240,201,160,.7); border-radius: 999px; font-family: var(--body); font-size: .95rem; letter-spacing: 0; text-transform: none; color: var(--ivory); font-weight: 400; transition: all .25s; }
+.chip input:checked + span { background: var(--gold-light); color: var(--maroon-deep); border-color: var(--gold-light); transform: scale(1.04); }
+.chip input:focus-visible + span { outline: 2px solid var(--ivory); outline-offset: 3px; }
+.rsvp .btn { background: linear-gradient(110deg, #c28b4f, var(--gold-light), #fbe0c0, var(--gold-light)); background-size: 220% 100%; color: var(--maroon-deep); font-weight: 500; }
+form .btn { justify-self: start; margin-top: .4rem; }
+.rsvp .btn:disabled { opacity: .65; cursor: default; transform: none; }
+.rsvp-status { min-height: 1.4em; font-size: .95rem; color: var(--gold-light); }
+.rsvp-status.err { color: #ffc2b8; }
+
 footer { text-align: center; padding: 5rem 1rem 4rem; position: relative; z-index: 2; background: var(--maroon-deep); color: var(--ivory); }
 footer .shubh { color: var(--gold-light); font-size: 1.5rem; opacity: 1; }
 footer .big { font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(3rem, 11vw, 6rem); line-height: 1.1; color: var(--gold-light); }
 footer .caps { color: var(--ivory); }
 footer p { opacity: .85; }
 
-/* ---------- Wedding song (Spotify) ---------- */
-.music {
-  position: fixed; right: .8rem; bottom: calc(.8rem + env(safe-area-inset-bottom, 0px)); z-index: 90;
-  width: min(calc(100vw - 1.6rem), 21rem);
-  display: flex; flex-direction: column; align-items: flex-end; gap: .5rem;
-  opacity: 0; transform: translateY(24px); pointer-events: none;
-  transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1);
-}
-body.opened .music { opacity: 1; transform: none; pointer-events: auto; transition-delay: 1.2s; }
-.music-box { width: 100%; height: 80px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 28px rgba(74,24,41,.35); transition: opacity .35s ease, max-height .45s ease, transform .35s ease; max-height: 80px; }
-.music-box iframe { display: block; width: 100%; border: 0; }
-.music.min .music-box { opacity: 0; max-height: 0; transform: scale(.9); pointer-events: none; }
-.music-toggle {
-  width: 2.7rem; height: 2.7rem; border-radius: 50%; cursor: pointer; display: grid; place-items: center;
-  border: 1px solid var(--gold); background: var(--maroon); color: var(--gold-light);
-  font-family: var(--display); font-size: 1.5rem; line-height: 1;
-  box-shadow: 0 8px 20px rgba(74,24,41,.4); transition: transform .25s, background .25s;
-}
-.music-toggle:hover { transform: scale(1.08); background: var(--maroon-deep); }
+/* ---------- Wedding song (Spotify, hidden - audio only) ---------- */
+#music { position: fixed; left: -600px; bottom: 0; width: 320px; height: 80px; overflow: hidden; opacity: 0; pointer-events: none; }
+#music iframe { width: 320px; height: 80px; border: 0; }
 
 /* ---------- Scroll-driven motion (content stays visible where unsupported) ---------- */
 @supports (animation-timeline: view()) {
@@ -284,6 +296,7 @@ body.opened .music { opacity: 1; transform: none; pointer-events: auto; transiti
   #progress { animation: grow linear both; animation-timeline: scroll(root); }
   .mandala.a { animation: spin 120s linear infinite, drift linear both; animation-timeline: auto, scroll(root); }
   .names-wrap { animation: lift linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+  .rsvp-grid .reveal { animation-range: entry 0% entry 70%; }
 }
 @keyframes reveal { from { opacity: 0; transform: translateY(60px) scale(.96); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
 @keyframes grow { to { transform: scaleX(1); } }
@@ -291,7 +304,9 @@ body.opened .music { opacity: 1; transform: none; pointer-events: auto; transiti
 @keyframes lift { to { transform: translateY(-80px) scale(.9); opacity: .2; } }
 
 @media (max-width: 760px) {
+  .rsvp-grid { grid-template-columns: 1fr; gap: 2rem; }
   .count-grid { gap: .5rem; }
+  form { padding: 1.3rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
@@ -302,7 +317,7 @@ body.opened .music { opacity: 1; transform: none; pointer-events: auto; transiti
 .env { display: none; } html.locked, html.locked body { overflow: auto; height: auto; }
 .hero .shubh, .hero .caps.top, .names .amp, .ch, .full, .date-badge, .hero .btn, .scroll-hint { opacity: 1; }
 .stem { stroke-dashoffset: 0; } .leaf { opacity: 1; }
-.music { display: none; }
+#music { display: none; }
 </style></noscript>
 </head>
 <body>
@@ -419,8 +434,13 @@ body.opened .music { opacity: 1; transform: none; pointer-events: auto; transiti
     <div class="orn reveal"><i></i><span>&#10022;</span><i></i></div>
     <p class="reveal" style="margin-top:1.6rem;max-width:46ch;margin-inline:auto">Your presence and your blessings will make our celebration complete. We look forward to sharing music, food and many happy moments with you.</p>
     <div class="hosts reveal">
+      <p class="caps">With the blessings of</p>
+      <p class="hosts-names">Late Jug Mohan Lal <span>&amp;</span> Shiv Kumari Srivastava</p>
+    </div>
+    <div class="hosts reveal">
       <p class="caps">Invited by</p>
       <p class="hosts-names">Ram Mohan Srivastava <span>&amp;</span> Preethi Srivastava</p>
+      <p class="hosts-names">Chandra Mohan Srivastava <span>&amp;</span> Parul Srivastava</p>
     </div>
   </div>
 </section>
@@ -456,6 +476,39 @@ body.opened .music { opacity: 1; transform: none; pointer-events: auto; transiti
   </div>
 </section>
 
+<section class="rsvp" id="rsvp">
+  <div class="wrap rsvp-grid">
+    <div class="reveal">
+      <p class="caps">RSVP</p>
+      <h2 class="title">Will you be there?</h2>
+      <p class="lead">Let us know so we can save you a seat. Your reply goes straight to the family.</p>
+    </div>
+    <form id="rsvp-form" class="reveal" novalidate>
+      <div>
+        <label for="guest-name">Your name</label>
+        <input type="text" id="guest-name" autocomplete="name">
+      </div>
+      <fieldset>
+        <legend>Will you attend?</legend>
+        <div class="choices">
+          <label class="chip"><input type="radio" name="attend" value="Joyfully accepts" checked><span>Joyfully accepts</span></label>
+          <label class="chip"><input type="radio" name="attend" value="Regretfully declines"><span>Regretfully declines</span></label>
+        </div>
+      </fieldset>
+      <div>
+        <label for="guest-count">Guests, including you</label>
+        <input type="number" id="guest-count" min="1" max="10" value="1">
+      </div>
+      <div>
+        <label for="guest-note">A note for the couple</label>
+        <textarea id="guest-note"></textarea>
+      </div>
+      <button class="btn" id="rsvp-send" type="submit">Send my reply</button>
+      <p class="rsvp-status" id="rsvp-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
 <footer>
   <p class="shubh" lang="hi">शुभ विवाह</p>
   <p class="big">Mahek &amp; Anirudh</p>
@@ -463,15 +516,13 @@ body.opened .music { opacity: 1; transform: none; pointer-events: auto; transiti
   <p style="margin-top:1.4rem">With love, the Srivastava's family &amp; Prince <svg class="paw" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="5.5" cy="11" rx="2" ry="2.8" transform="rotate(-20 5.5 11)"/><ellipse cx="9.6" cy="6.2" rx="2" ry="2.8" transform="rotate(-8 9.6 6.2)"/><ellipse cx="14.4" cy="6.2" rx="2" ry="2.8" transform="rotate(8 14.4 6.2)"/><ellipse cx="18.5" cy="11" rx="2" ry="2.8" transform="rotate(20 18.5 11)"/><path d="M12 11.2c-3.2 0-6 3.6-6 6.4 0 2 1.7 2.6 3 2.6 1.1 0 1.9-.6 3-.6s1.9.6 3 .6c1.3 0 3-.6 3-2.6 0-2.8-2.8-6.4-6-6.4z"/></svg></p>
 </footer>
 
-<!-- Wedding song player (Spotify) -->
-<div class="music" id="music">
-  <button class="music-toggle" id="music-toggle" type="button" aria-label="Hide music player" aria-expanded="true">&#9834;</button>
-  <div class="music-box"><div id="spotify-embed"></div></div>
-</div>
+<!-- Wedding song (Spotify, hidden - audio only) -->
+<div id="music" aria-hidden="true"><div id="spotify-embed"></div></div>
 
 <script>
 // Edit these to personalise the page.
 var WEDDING_START = new Date("2026-11-27T19:00:00+05:30");
+var RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbzaCV3eBoQSECQEWpaDYicqmrApPxUsauam_vMh2c0o5BxRuUY2LOxSybMORLNUmQxX/exec"; // paste your Google Apps Script web app URL here (see rsvp-apps-script.gs)
 var SPOTIFY_TRACK = "119XDcdbad5u5bp841vUGV"; // Spotify track ID of the wedding song
 
 (function () {
@@ -479,25 +530,26 @@ var SPOTIFY_TRACK = "119XDcdbad5u5bp841vUGV"; // Spotify track ID of the wedding
   var M = reduce ? 0.1 : 1;
 
   /* ---------- Wedding song (Spotify embed) ---------- */
-  var spotifyCtrl = null, wantPlay = false;
+  var spotifyCtrl = null, wantPlay = false, songStarted = false;
   window.onSpotifyIframeApiReady = function (IFrameAPI) {
     var holder = document.getElementById("spotify-embed");
     if (!holder) return;
-    IFrameAPI.createController(holder, { uri: "spotify:track:" + SPOTIFY_TRACK, width: "100%", height: 80 }, function (ctrl) {
+    IFrameAPI.createController(holder, { uri: "spotify:track:" + SPOTIFY_TRACK, width: 320, height: 80 }, function (ctrl) {
       spotifyCtrl = ctrl;
-      if (wantPlay) { try { ctrl.play(); } catch (e) {} }
+      ctrl.addListener("playback_update", function (e) {
+        var d = e && e.data; if (!d) return;
+        if (!d.isPaused) songStarted = true;
+        else if (songStarted && d.position === 0) { try { ctrl.play(); } catch (x) {} } // song ended: play again
+      });
+      if (wantPlay) { try { ctrl.play(); } catch (x) {} }
     });
   };
   function playSong() {
     if (spotifyCtrl) { try { spotifyCtrl.play(); } catch (e) {} }
     else { wantPlay = true; }
   }
-  var music = document.getElementById("music"), musicToggle = document.getElementById("music-toggle");
-  musicToggle.addEventListener("click", function () {
-    var min = music.classList.toggle("min");
-    musicToggle.setAttribute("aria-expanded", min ? "false" : "true");
-    musicToggle.setAttribute("aria-label", min ? "Show music player" : "Hide music player");
-  });
+  // If the song did not start on the seal tap (e.g. the player was still loading), start it on the next tap.
+  document.addEventListener("pointerdown", function () { if (opened && !songStarted) playSong(); }, { passive: true });
 
   /* ---------- Sparkle burst canvas ---------- */
   var fx = document.getElementById("fx"), fctx = fx.getContext("2d"), FW, FH, parts = [], fxRun = false;
@@ -588,6 +640,34 @@ var SPOTIFY_TRACK = "119XDcdbad5u5bp841vUGV"; // Spotify track ID of the wedding
     document.documentElement.style.setProperty("--mx", e.clientX + "px");
     document.documentElement.style.setProperty("--my", e.clientY + "px");
   }, { passive: true });
+
+  /* ---------- RSVP: saved online, emailed to the family as a PDF report ---------- */
+  var form = document.getElementById("rsvp-form"), send = document.getElementById("rsvp-send"), statusEl = document.getElementById("rsvp-status");
+  function setStatus(msg, isErr) { statusEl.textContent = msg; statusEl.className = "rsvp-status" + (isErr ? " err" : ""); }
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var nameEl = document.getElementById("guest-name"), name = nameEl.value.trim();
+    if (!name) { setStatus("Please enter your name.", true); nameEl.focus(); return; }
+    if (!RSVP_ENDPOINT) { setStatus("RSVP is not connected yet. Please contact the family directly.", true); return; }
+    var payload = {
+      name: name,
+      attend: form.querySelector("input[name=attend]:checked").value,
+      guests: document.getElementById("guest-count").value || "1",
+      note: document.getElementById("guest-note").value.trim()
+    };
+    send.disabled = true; send.textContent = "Sending...";
+    fetch(RSVP_ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
+      .then(function () {
+        form.reset();
+        setStatus("Thank you, " + name + "! Your reply has been received.", false);
+        send.textContent = "Reply sent";
+        setTimeout(function () { send.disabled = false; send.textContent = "Send my reply"; }, 5000);
+      })
+      .catch(function () {
+        setStatus("Could not send your reply. Please check your internet and try again.", true);
+        send.disabled = false; send.textContent = "Send my reply";
+      });
+  });
 
   /* ---------- Petals + sparkles (start after the envelope opens) ---------- */
   var petalsOn = false;
