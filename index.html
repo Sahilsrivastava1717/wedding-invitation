@@ -221,6 +221,10 @@ body.opened .scroll-hint { animation: rise 1s ease 3s both, drip 2.2s ease-in-ou
 .orn { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 2rem; color: var(--gold-deep); }
 .orn i { display: block; height: 1px; width: min(30vw, 9rem); background: linear-gradient(90deg, transparent, var(--gold)); }
 .orn i:last-child { transform: scaleX(-1); }
+.hosts { margin-top: 2.6rem; }
+.hosts-names { font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(1.9rem, 5vw, 2.8rem); line-height: 1.2; color: var(--maroon); margin-top: .5rem; text-wrap: balance; }
+.hosts-names span { color: var(--gold-deep); font-weight: 500; padding-inline: .15em; }
+.paw { width: 1.2em; height: 1.2em; fill: var(--gold-light); vertical-align: -.25em; margin-left: .25em; }
 
 /* ---------- Wedding ceremony: single arch card ---------- */
 .events { padding: 5rem 0 5rem; }
@@ -414,6 +418,10 @@ body.opened .music { opacity: 1; transform: none; pointer-events: auto; transiti
     <p class="big reveal">Join us as two hearts become one, and two families become one.</p>
     <div class="orn reveal"><i></i><span>&#10022;</span><i></i></div>
     <p class="reveal" style="margin-top:1.6rem;max-width:46ch;margin-inline:auto">Your presence and your blessings will make our celebration complete. We look forward to sharing music, food and many happy moments with you.</p>
+    <div class="hosts reveal">
+      <p class="caps">Invited by</p>
+      <p class="hosts-names">Ram Mohan Srivastava <span>&amp;</span> Preethi Srivastava</p>
+    </div>
   </div>
 </section>
 
@@ -452,7 +460,7 @@ body.opened .music { opacity: 1; transform: none; pointer-events: auto; transiti
   <p class="shubh" lang="hi">शुभ विवाह</p>
   <p class="big">Mahek &amp; Anirudh</p>
   <p class="caps" style="margin-top:.8rem">27 November 2026</p>
-  <p style="margin-top:1.4rem">With love, the Srivastava's family</p>
+  <p style="margin-top:1.4rem">With love, the Srivastava's family &amp; Prince <svg class="paw" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="5.5" cy="11" rx="2" ry="2.8" transform="rotate(-20 5.5 11)"/><ellipse cx="9.6" cy="6.2" rx="2" ry="2.8" transform="rotate(-8 9.6 6.2)"/><ellipse cx="14.4" cy="6.2" rx="2" ry="2.8" transform="rotate(8 14.4 6.2)"/><ellipse cx="18.5" cy="11" rx="2" ry="2.8" transform="rotate(20 18.5 11)"/><path d="M12 11.2c-3.2 0-6 3.6-6 6.4 0 2 1.7 2.6 3 2.6 1.1 0 1.9-.6 3-.6s1.9.6 3 .6c1.3 0 3-.6 3-2.6 0-2.8-2.8-6.4-6-6.4z"/></svg></p>
 </footer>
 
 <!-- Wedding song player (Spotify) -->
